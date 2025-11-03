@@ -275,24 +275,7 @@ nameRule="option name 'Block_UDP_443'"
 str=$(grep -i "$nameRule" /etc/config/firewall)
 if [ -z "$str" ] 
 then
-  echo "Add block QUIC..."
-
-  uci add firewall rule # =cfg2492bd
-  uci set firewall.@rule[-1].name='Block_UDP_80'
-  uci add_list firewall.@rule[-1].proto='udp'
-  uci set firewall.@rule[-1].src='lan'
-  uci set firewall.@rule[-1].dest='wan'
-  uci set firewall.@rule[-1].dest_port='80'
-  uci set firewall.@rule[-1].target='REJECT'
-  uci add firewall rule # =cfg2592bd
-  uci set firewall.@rule[-1].name='Block_UDP_443'
-  uci add_list firewall.@rule[-1].proto='udp'
-  uci set firewall.@rule[-1].src='lan'
-  uci set firewall.@rule[-1].dest='wan'
-  uci set firewall.@rule[-1].dest_port='443'
-  uci set firewall.@rule[-1].target='REJECT'
-  uci commit firewall
-  service firewall restart
+  echo "Add block..."
 fi
 
 cronTask="0 4 * * * wget -O - $URL/configure_zaprets.sh | sh"
