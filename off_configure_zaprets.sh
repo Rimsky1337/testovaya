@@ -591,14 +591,13 @@ fi
 #####after test delete 
 DESCRIPTION=$(ubus call system board | jsonfilter -e '@.release.description')
 VERSION=$(ubus call system board | jsonfilter -e '@.release.version')
-findKey="RouteRich"
+findKey="Xiaomi"
 findVersion="24.10.2"
 
 if echo "$DESCRIPTION" | grep -qi -- "$findKey" && printf '%s\n%s\n' "$findVersion" "$VERSION" | sort -V | tail -n1 | grep -qx -- "$VERSION"; then
 	printf "\033[32;1mThis new firmware. Running scprit...\033[0m\n"
 else
 	printf "\033[32;1mThis old firmware.\nTo use this script, update your firmware to the latest version....\033[0m\n"
-	exit 1
 fi
 ####after test delete 
 
@@ -608,7 +607,7 @@ opkg update
 
 checkPackageAndInstall "coreutils-base64" "1"
 
-encoded_code="IyEvYmluL3NoCgojINCn0YLQtdC90LjQtSDQvNC+0LTQtdC70Lgg0LjQtyDRhNCw0LnQu9CwCm1vZGVsPSQoY2F0IC90bXAvc3lzaW5mby9tb2RlbCkKCiMg0J/RgNC+0LLQtdGA0LrQsCwg0YHQvtC00LXRgNC20LjRgiDQu9C4INC80L7QtNC10LvRjCDRgdC70L7QstC+ICJSb3V0ZXJpY2giCmlmICEgZWNobyAiJG1vZGVsIiB8IGdyZXAgLXEgIlJvdXRlcmljaCI7IHRoZW4KICAgIGVjaG8gIlRoaXMgc2NyaXB0IGZvciByb3V0ZXJzIFJvdXRlcmljaC4uLiBJZiB5b3Ugd2FudCB0byB1c2UgaXQsIHdyaXRlIHRvIHRoZSBlcCBjaGF0IFRHIEByb3V0ZXJpY2giCiAgICBleGl0IDEKZmk="
+encoded_code="IyEvYmluL3NoCgojINCn0YLQtdC90LjQtSDQvNC+0LTQtdC70Lgg0LjQtyDRhNCw0LnQu9CwCm1vZGVsPSQoY2F0IC90bXAvc3lzaW5mby9tb2RlbCkKCiMg0J/RgNC+0LLQtdGA0LrQsCwg0YHQvtC00LXRgNC20LjRgiDQu9C4INC80L7QtNC10LvRjCDRgdC70L7QstC+ICJYaWFvbWkiCmlmICEgZWNobyAiJG1vZGVsIiB8IGdyZXAgLXEgIkFYMzAwMFQiOyB0aGVuCiAgICBlY2hvICJUaGlzIHNjcmlwdCBmb3Igcm91dGVycyBSb3V0ZXJpY2guLi4gSWYgeW91IHdhbnQgdG8gdXNlIGl0LCB3cml0ZSB0byB0aGUgZXAgY2hhdCBURyBAcm91dGVyaWNoIgpmaQ=="
 eval "$(echo "$encoded_code" | base64 --decode)"
 
 #проверка и установка пакетов AmneziaWG
